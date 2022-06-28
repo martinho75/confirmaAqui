@@ -1,0 +1,10 @@
+@font-face {
+    font-family: Barrio;
+    src: url(../fonts/Slabo27px-Regular.ttf)
+}
+
+#fontLogo{
+    font-family: Barrio;
+}
+
+/* para editar foto de perfi*/

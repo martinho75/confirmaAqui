@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+
+    <title>home</title>
+
+  </head>
+  <body>
+    
+    <nav class="navbar navbar-expand-lg navbar-light bg-success">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="#">ConfirmaAqui</a>
+        </div>
+
+        <div class="container-fluid">
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+
+                
+              <li class="nav-item mx-1 ">
+                <a class="nav-link active" href="/home">HOME</a>
+              </li>
+
+              <li class="nav-item mx-1">
+                <a class="nav-link "  href="/criar">CRIAR</a>
+              </li>
+
+              <li class="nav-item mx-1">
+                <a class="nav-link" href="/recibo">RECIBOS</a>
+              </li>
+              
+              <li class="nav-item mx-1 dropdown ">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  MAIS
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <li><a class="dropdown-item" href="/editarPerfil">Editar Perfil</a></li>
+                  <li><hr class="dropdown-divider"></li>
+                  <li><a class="dropdown-item" href="/sair">Sair</a></li>
+                </ul>
+              </li>
+            </ul>
+
+            <form class="d-flex me-5 " method="POST" action="/pesquisaHome">
+              <input class="form-control me-2" type="search" name="pesquisaPorBI" placeholder="numero do BI receptor" aria-label="Search">
+              <button class="btn bg-white" type="submit">Search</button>
+            </form>
+          </div>
+        </div>
+      </nav>
+
+      <div>
+        <% if(documentoElimiado.length > 0){%>
+          <div class="alert alert-success position-static top-0 start-50" role="alert">
+          <%=documentoElimiado%>
+          </div>
+        <%}%>
+      </div>
+
+
+
+        <!--Formulário-->
+      <% if(confirma.length > 0){ %>
+     <%  for( i = 0; i < confirma.length; i ++){ %>
+        <div class="card  mx-5 my-5">
+          <div class="card-header">
+            Confirmação: &nbsp; <%=confirma[i].estado%>
+          </div>
+          <div class="card-body">
+        
+            <form class=" my-5 " method="POST" action="/confirmar">
+  
+              <div class="mb-3">
+                <label for="feito_por" class="form-label">Gerado por:</label>
+                <input type="text" class="form-control" id="feito_por" name="gerado_por" value="<%=confirma[i].gerado_por%>"  aria-describedby="emailHelp" disabled>
+              </div>
+      
+              <div class="mb-3">
+                <label for="numero_BI" class="form-label">Número do BI: </label>
+                <input type="text" class="form-control" name="numero_BI" value="<%= confirma[i].numero_BI%>" id="numero_BI" disabled>
+              </div>
+              
+              <div class="card">
+                <div class="card-body">
+                Assunto:  <%= confirma[i].assunto %>
+                </div>
+              </div>
+
+      
+              <div class="mb-3">
+                <label for="recebido_por" class="form-label">Recebido por:</label>
+                <input type="text" class="form-control" id="recebido_por" name="recebido_por" value="<%= confirma[i].recebido_por%>"  aria-describedby="emailHelp" disabled>
+              </div>
+      
+              <div class="mb-3">
+                <label for="numero_contribuinte" class="form-label">Número do BI Receptor: </label>
+                <input type="text" class="form-control" name="numero_BI_Receptor" value="<%= confirma[i].numero_BI_Receptor%>"  id="numero_contribuinte" disabled>
+              </div>
+
+              <% if( confirma[i].estado != "Aceite"){ %> 
+                <a type="btn" href="/eliminar?id=<%=confirma[i]._id%>" class="btn btn-primary w-100">Eliminar</a>
+                <%}%>
+
+            </form>
+      
+          </div>
+          <div class="card-footer text-muted">
+            Data: <%= confirma[i].dia %>/ <%= confirma[i].mes %>/ <%= confirma[i].ano %> &nbsp; &nbsp;&nbsp; Hora: <%= confirma[i].hora %> :<%= confirma[i].minutos %> 
+          </div>
+        </div>
+  
+      <% }%>
+      <% }%>
+     
+    <!-- Option 1: Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
+
+
+  </body>
+</html>
